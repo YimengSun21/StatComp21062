@@ -1,0 +1,17 @@
+Package: StatComp21062
+Type: Package
+Title: Final work for the 'Statistical Computing' course
+Version: 1.0
+Date: 2021-12-17
+Author: Yimeng Sun
+Maintainer: Yimeng Sun <sunyimeng21@mail.ustc.edu.cn>
+Description: Several R and Rcpp functions and all the homeworks are included in this package.
+License: GPL
+Imports: Rcpp
+LinkingTo: Rcpp
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+URL: http://github.com/zhanghfd/StatComp
+BugReports: http://github.com/zhanghfd/StatComp/issues

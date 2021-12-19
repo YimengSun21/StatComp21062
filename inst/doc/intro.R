@@ -1,0 +1,58 @@
+## ----eval=FALSE---------------------------------------------------------------
+#  KLD <- function(px, py, base = exp(1))
+#  {
+#    ### Judge
+#    if(!is.vector(px)) px <- as.vector(px)
+#    if(!is.vector(py)) py <- as.vector(py)
+#    n1 <- length(px)
+#    n2 <- length(py)
+#    if(!identical(n1, n2))
+#      stop("px and py must have the same length.")
+#    if(any(!is.finite(px)) || any(!is.finite(py)))
+#      stop("px and py must be finite values.")
+#    if(any(px < 0) || any(py < 0))
+#      stop("px and py must be nonnegative values.")
+#    ### Calculate the Kullback-Leibler divergence(KLD)
+#    px <- px / sum(px)
+#    py <- py / sum(py)
+#    kld.forward <- px * (log(px, base = base)-log(py, base = base))
+#    kld.backward <- py * (log(py, base = base)-log(px, base = base))
+#    KLD.forward <- sum(kld.forward)
+#    KLD.backward <- sum(kld.backward)
+#    result <- list(KLD.forward = KLD.forward,
+#                   KLD.backward = KLD.backward)
+#    return(result)
+#  }
+
+## ----eval=FALSE---------------------------------------------------------------
+#  JackAfterBoot <- function(data, func = NULL, B){
+#    n <- length(data)
+#    theta <- func(data)
+#    theta_b <- numeric(B)
+#    mat <- matrix(0, nrow = B, ncol = n)
+#    ### Bootstrap
+#    for(i in 1:B){
+#      sam <- sample(1:n, size = n, replace = TRUE)
+#      mat[i, ] <- sam
+#      dat <- data[sam]
+#      theta_b[i] <- func(dat)
+#    }
+#    ### Jackknife After Bootstrap
+#    se_jack <- numeric(n)
+#    theta_j <- numeric(n)
+#    for (i in 1:n) {
+#      keep <- (1:B)[apply(mat, MARGIN = 1, FUN = function(k) {!any(k == i)})]
+#      theta_j[i] <- mean(theta_b[keep])
+#      se_jack[i] <- sd(theta_b[keep])
+#    }
+#    se_boot <- sd(theta_b)
+#    bias_boot <- mean(theta_b) - theta
+#    se_jackafterboot <- sqrt((n-1) * mean((se_jack - mean(se_jack))^2))
+#    bias_jackafterboot <- (n-1) * (mean(theta_j) - theta)
+#    result <- list(se_Bootstarp = se_boot,
+#                   se_JackAfterBoot = se_jackafterboot,
+#                   bias_Bootstarp = bias_boot,
+#                   bias_JackAfterBoot = bias_jackafterboot)
+#    return(result)
+#  }
+
